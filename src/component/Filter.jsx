@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import DatePicker from 'react-datepicker';
 
 const url = import.meta.env.VITE_API_URL;
@@ -13,7 +13,6 @@ function Filter(
 
     ) {
 
-    const [visitUrl, setVisitUrl] = useState(null);
 
     const payload = {
         age: filterAge,

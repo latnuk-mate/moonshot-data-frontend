@@ -1,9 +1,14 @@
 import { useContext } from "react"
 import { Context } from "../UserContext"
 import { Link } from "react-router-dom";
+import Loading from "./Loading";
 
 export default function Home(){
     const {user} = useContext(Context);
+
+    if(!user){
+        return <Loading />
+      }
 
     return (
         <div className="app_container">

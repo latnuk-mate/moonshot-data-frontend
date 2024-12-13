@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Context } from '../UserContext';
 import ChartBar from './ChartBar';
 import { Link, useLocation} from 'react-router-dom';
+import Loading from './Loading';
 
 
 function View() {
@@ -9,9 +10,8 @@ function View() {
 
   const {user} = useContext(Context);
 
+
   const location = useLocation();
-
-
 
     const deserializeData = (encodedData) => {
       if (encodedData) {
@@ -38,12 +38,13 @@ function View() {
           
       }
 
-        if(url){
           setItems(params);
-        }
       
   }, []);
 
+
+  console.log(items);
+  
 
 
 if(items){
@@ -73,6 +74,14 @@ if(items){
 
   return (
         <div className='app_container'>
+
+          {
+            !user && (
+              <Loading />
+            )
+          }
+
+
         <div className="m-auto shadow-md border p-3 mt-10 max-w-[500px]">
             {
               (user && items) ? (
