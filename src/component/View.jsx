@@ -1,13 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Context } from '../UserContext';
 import ChartBar from './ChartBar';
-import { Link} from 'react-router-dom';
+import { Link, useLocation} from 'react-router-dom';
 
 
 function View() {
   const [items, setItems] = useState(null)
 
   const {user} = useContext(Context);
+
+  const location = useLocation();
 
 
 
@@ -22,7 +24,6 @@ function View() {
 
   useEffect(function(){
       const url = new URLSearchParams(location.search);
-      console.log(url)
       const arr = ['age', 'gender', 'startdate', 'enddate', 'totaltime', 'timetrend', 'itemDates'];
       const params = {};
 
