@@ -1,4 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react'
+import Loading from './component/Loading';
 
 const url = import.meta.env.VITE_API_URL;
 
@@ -6,25 +7,31 @@ export const Context = createContext({});
 
 function UserContext({children}) {
     const [user , setUser] = useState(null);
+    const [ready, setIsReady] = useState(false);
 
 
 useEffect(function(){
+      console.log('from the context')
         fetch(`${url}/user`,  {
           method: 'GET',
           credentials: 'include' 
         })
-        .then(res => {
-            if(!res.ok){
-              throw new Error('error')
+        .then(res => res.json())
+        .then(data => {
+            if(data && data.user !== null){
+              setUser(data.user);
+            }else{
+              setUser(data.user) // set by default null
             }
-          return res.json()})
-        .then(data => {   
-          setUser(data);
+            setIsReady(true);
         })
         .catch(err => console.log(err))
   }, []);
 
 
+  if(!ready){
+    return <Loading />
+  }
 
 
 

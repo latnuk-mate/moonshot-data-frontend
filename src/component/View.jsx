@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Context } from '../UserContext';
 import ChartBar from './ChartBar';
 import { Link, useLocation} from 'react-router-dom';
-import Loading from './Loading';
 
 
 function View() {
@@ -43,10 +42,6 @@ function View() {
   }, []);
 
 
-  console.log(items);
-  
-
-
 if(items){
     var bardata = {
     labels: Object.keys(items?.timetrend).map(item => item),
@@ -74,14 +69,6 @@ if(items){
 
   return (
         <div className='app_container'>
-
-          {
-            !user && (
-              <Loading />
-            )
-          }
-
-
         <div className="m-auto shadow-md border p-3 mt-10 max-w-[500px]">
             {
               (user && items) ? (

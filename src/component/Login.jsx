@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { Navigate } from 'react-router-dom';
 import { Context } from '../UserContext';
-import Loading from './Loading';
+
 
 const url = import.meta.env.VITE_API_URL;
 
@@ -15,8 +15,6 @@ function Login() {
 
     if(user){
       return <Navigate to={'/dashboard'} />
-    }else{
-      return <Loading />
     }
 
 

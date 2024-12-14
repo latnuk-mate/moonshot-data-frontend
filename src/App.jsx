@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import './App.css'
 import Dashboard from './component/Dashboard';
 import Navbar from './component/Navbar';
@@ -8,12 +8,15 @@ import View from './component/View';
 import Login from './component/Login';
 import Register from './component/Register'
 import PrivateRoute from './PrivateRoute';
+import { Context } from './UserContext';
 
 const url = import.meta.env.VITE_API_URL;
 
 function App() {
   const [dataset, setDataSet] = useState(null);
   const [primaryData , setPrimaryData] = useState(null);
+
+  const {user} = useContext(Context);
 
 
 
@@ -24,7 +27,6 @@ function App() {
     })
     .then(res => res.json())
     .then((data) => {
-      console.log(data)
       setDataSet(data.allData);
       setPrimaryData(data.primaryData)
     })
@@ -33,48 +35,49 @@ function App() {
 
 
 return(
-  <Router>
-  <Routes>
-    <Route index element={
-      <>
-      <Home/>
-      </>
-      
-      } />
-
-  <Route path={'/dashboard'} element={
-      <PrivateRoute 
-          element={
+        <Router>
+        <Routes>
+          <Route index element={
             <>
-            <Navbar/>
-            {
-              (dataset) && (
-                <Dashboard 
-                data={dataset} 
-                primaryData={primaryData}
-                />
-              )
-            } 
-          </>
-          }
-      />
-    }
-    />
-
-    <Route 
-      path='/view' 
-      element={
-           <>
-            <Navbar />
-            <View />
+            <Home/>
             </>
-    }/>
-    
-    
-    <Route path='/login' element={<Login />}/>
-    <Route path='/register' element={<Register/>}/>
-  </Routes>
-  </Router>
+            
+            } />
+
+        <Route path={'/dashboard'} element={
+            <PrivateRoute 
+                element={
+                  <>
+                  <Navbar/>
+                  {
+                    (dataset) && (
+                      <Dashboard 
+                      data={dataset} 
+                      primaryData={primaryData}
+                      />
+                    )
+                  } 
+                </>
+                }
+            />
+          }
+          />
+
+          <Route 
+            path='/view' 
+            element={
+                <>
+                  <Navbar />
+                  <View />
+                  </>
+          }/>
+          
+          
+          <Route path='/login' element={<Login />}/>
+          <Route path='/register' element={<Register/>}/>
+        </Routes>
+        </Router>
+
 )
 
 
